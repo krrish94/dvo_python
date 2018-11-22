@@ -5,6 +5,9 @@ import numpy as np
 import os
 import sys
 
+import imgutils
+import pyramid
+
 
 # Parse command-line arguments
 def parse_args():
@@ -20,6 +23,7 @@ def parse_args():
 		RGB frame to be processed')
 	parser.add_argument('-endFrameDepth', help='Filename (sans the .png extension) of the last \
 		depth frame to be processed')
+	parser.add_argument('-numPyramidLevels', help='Number of levels used in the pyramid', default=3)
 
 	args = parser.parse_args()
 
@@ -29,21 +33,35 @@ def parse_args():
 # Main method
 def main(args):
 	
-	img_rgb_cur = cv2.imread(os.path.join(args.datapath, 'rgb', args.startFrameRGB + '.png'), cv2.IMREAD_GRAYSCALE)
+	img_gray_cur = cv2.imread(os.path.join(args.datapath, 'rgb', args.startFrameRGB + '.png'), cv2.IMREAD_GRAYSCALE)
 	img_depth_cur = cv2.imread(os.path.join(args.datapath, 'depth', args.startFrameDepth + '.png'), cv2.IMREAD_GRAYSCALE)
-	img_rgb_next = cv2.imread(os.path.join(args.datapath, 'rgb', args.endFrameRGB + '.png'), cv2.IMREAD_GRAYSCALE)
+	img_gray_next = cv2.imread(os.path.join(args.datapath, 'rgb', args.endFrameRGB + '.png'), cv2.IMREAD_GRAYSCALE)
 	img_depth_next = cv2.imread(os.path.join(args.datapath, 'depth', args.endFrameDepth + '.png'), cv2.IMREAD_GRAYSCALE)
-	# print(img_rgb_cur.shape, img_depth_cur.shape, img_rgb_next.shape, img_depth_next.shape)
-	fig, ax = plt.subplots(2, 2)
-	ax[0, 0].imshow(img_rgb_cur, cmap='gray')
-	ax[0, 0].set_title('RGB image (current frame)')
-	ax[0, 1].imshow(img_depth_cur, cmap='gray')
-	ax[0, 1].set_title('Depth image (current frame)')
-	ax[1, 0].imshow(img_rgb_next, cmap='gray')
-	ax[1, 0].set_title('RGB image (next frame)')
-	ax[1, 1].imshow(img_depth_next, cmap='gray')
-	ax[1, 1].set_title('Depth image (next frame)')
-	plt.show()
+
+	# img_gray_cur = img_gray_cur.astype(np.float32)
+	# img_depth_cur = img_depth_cur.astype(np.float32)
+	# img_gray_next = img_gray_next.astype(np.float32)
+	# img_depth_next = img_depth_next.astype(np.float32)
+	img_gray_cur = imgutils.im2float(img_gray_cur)
+	img_gray_next = imgutils.im2float(img_gray_next)
+	print(img_gray_cur.shape, img_depth_cur.shape, img_gray_next.shape, img_depth_next.shape)
+	
+	img_down = pyramid.downsampleGray(img_gray_cur)
+	img_depth_down = pyramid.downsampleDepth(img_depth_cur)
+	cv2.imshow('orig', img_depth_cur)
+	cv2.imshow('down', img_depth_down)
+	cv2.waitKey(0)
+
+	# fig, ax = plt.subplots(2, 2)
+	# ax[0, 0].imshow(img_gray_cur, cmap='gray')
+	# ax[0, 0].set_title('RGB image (current frame)')
+	# ax[0, 1].imshow(img_depth_cur, cmap='gray')
+	# ax[0, 1].set_title('Depth image (current frame)')
+	# ax[1, 0].imshow(img_gray_next, cmap='gray')
+	# ax[1, 0].set_title('RGB image (next frame)')
+	# ax[1, 1].imshow(img_depth_next, cmap='gray')
+	# ax[1, 1].set_title('Depth image (next frame)')
+	# plt.show()
 
 
 if __name__ == '__main__':
