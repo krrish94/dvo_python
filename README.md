@@ -45,4 +45,4 @@ Times are in 24-hour format.
 * 2140 - 2300: Build pyramid levels (plus a lot of interruptions :|)
 * 2330 - 0115: Compute the photometric warp error
 * 0115 - 0145: Get SE(3) helper functions in
-* 0200 - 0220: Image gradient computation
+* 0200 - 0220: Image gradient computation, fetch SE(3) Jacobian helper functions
