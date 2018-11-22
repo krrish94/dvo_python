@@ -66,21 +66,30 @@ def downsampleDepth(img):
 
 
 # Function to construct a pyramid of intensity and depth images with a specified number of levels
-def buildPyramid(gray, depth, num_levels):
+def buildPyramid(gray, depth, num_levels, focal_length, cx, cy):
 
 	# Lists to store each level of a pyramid
 	pyramid_gray = []
 	pyramid_depth = []
+	pyramid_intrinsics = []
 
 	current_gray = gray
 	current_depth = depth
+	current_f = focal_length
+	current_cx = cx
+	current_cy = cy
 
 	# Build levels of the pyramid
 	for level in range(num_levels):
 		pyramid_gray.append(current_gray)
 		pyramid_depth.append(current_depth)
+		K_cur = dict()
+		K_cur['f'] = current_f
+		K_cur['cx'] = current_cx
+		K_cur['cy'] = current_cy
+		pyramid_intrinsics.append(K_cur)
 		if level < num_levels-1:
 			current_gray = downsampleGray(current_gray)
 			current_depth = downsampleDepth(current_depth)
 
-	return pyramid_gray, pyramid_depth
+	return pyramid_gray, pyramid_depth, pyramid_intrinsics

@@ -21,7 +21,7 @@ Someone tweeted about [this elegant implementation ](https://github.com/muskie82
 
 - [x] Work out dependencies (`numpy`, `OpenCV`, some SE(3) package(??), `matplotlib`)
 - [x] Read in a pair of pointclouds and visualize them
-- [ ] Construct image and depth pyramids
+- [x] Construct image and depth pyramids
 - [ ] Compute the residual (warping error)
 - [ ] Implement image gradient computation
 - [ ] Compute Jacobian of the error function
@@ -41,3 +41,4 @@ Times are in 24-hour format.
 * 2000 - 2020: Chalk out action plan.
 * 2020 - 2050: Dinner break.
 * 2100 - 2130: Download a sequence from TUM RGB-D, load and display stuff
+* 2140 - 2300: Build pyramid levels (plus a lot of interruptions :|)
