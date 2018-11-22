@@ -19,7 +19,7 @@ Someone tweeted about [this elegant implementation ](https://github.com/muskie82
 
 ## Micromanagement
 
-- [ ] Work out dependencies (`numpy`, `OpenCV`, some SE(3) package(??), `matplotlib`)
+- [x] Work out dependencies (`numpy`, `OpenCV`, some SE(3) package(??), `matplotlib`)
 - [ ] Read in a pair of pointclouds and visualize them
 - [ ] Construct image and depth pyramids
 - [ ] Compute the residual (warping error)
@@ -33,3 +33,10 @@ Someone tweeted about [this elegant implementation ](https://github.com/muskie82
 - [ ] Debug!
 - [ ] Check for any possibile visualization glitches/enhancements.
 
+
+## Activity Log
+
+Times are in 24-hour format.
+
+2000 - 2020: Chalk out action plan.
+2020 - 2050: Dinner break.
