@@ -31,30 +31,12 @@ def downsampleDepth(img):
 	depth values.
 	"""
 
-	# Get dimensions
-	width = img.shape[1]
-	height = img.shape[0]
-	width_new = width // 2
-	height_new = height // 2
-
 	# Perform block-averaging, but not across depth boundaries. (i.e., compute average only 
 	# over non-zero elements)
-	# img_new = (img[0::2,0::2] + img[0::2,1::2] + img[1::2,0::2] + img[1::2,1::2]) / 4.
 	img_ = np.stack([img[0::2,0::2], img[0::2,1::2], img[1::2,0::2], img[1::2,1::2]], axis=2)
-	print(np.max(np.count_nonzero(img_, axis = 2)))
-	# print(np.count_nonzero(img_, axis = 2))
-
-	# Perform block-averaging
-	img_new = np.zeros((height_new, width_new), dtype=np.float32)
-	for y in range(height_new):
-		for x in range(width_new):
-			# Compute mean of corresponding block in the original image
-			neighbors = np.asarray([img.item((2*y, 2*x)), img.item((2*y+1, 2*x)), \
-				img.item((2*y, 2*x+1)), img.item((2*y+1, 2*x+1)) ])
-			# Set (y, x) in img_new to the computed average (only over non-zero elements)
-			values = neighbors[np.nonzero(neighbors)]
-			if values.size != 0:
-				img_new.itemset((y, x), np.mean(values))
+	num_nonzero = np.count_nonzero(img_, axis=2)
+	num_nonzero[np.where(num_nonzero == 0)] = 1
+	img_new = np.sum(img_, axis=2) / num_nonzero
 
 	return img_new.astype(np.uint8)
 

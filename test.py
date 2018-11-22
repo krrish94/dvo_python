@@ -57,7 +57,7 @@ def main(args):
 	cy = 239.5
 	scaling_factor = 5000
 
-	# Construct a downsampled pyramid using the specified number of pyramid levels
+	# # Construct a downsampled pyramid using the specified number of pyramid levels
 	pyramid_gray, pyramid_depth, pyramid_intrinsics = pyramid.buildPyramid(img_gray_prev, \
 		img_depth_prev, num_levels=args.numPyramidLevels, focal_length=f, cx=cx, cy=cy)
 
@@ -73,14 +73,14 @@ def main(args):
 
 	# # Test image gradient computation
 	# grad_ix, grad_iy = photometric_alignment.computeImageGradients(img_gray_prev)
-	# cv2.imshow('img', img_gray_prev)
-	# cv2.imshow('grad_x', grad_ix)
-	# cv2.imshow('grad_y', grad_iy)
+	# cv2.imshow('img', pyramid_depth[0])
+	# cv2.imshow('depth', pyramid_depth[1])
+	# cv2.imshow('depth_down', pyramid_depth[2])
 	# cv2.waitKey(0)
 
-	# # Test Jacobian computation
-	# J = photometric_alignment.computeJacobian(img_gray_prev, img_depth_prev, img_gray_cur, \
-	# 	K, xi_init, residuals, cache_point3d)
+	# Test Jacobian computation
+	J = photometric_alignment.computeJacobian(img_gray_prev, img_depth_prev, img_gray_cur, \
+		K, xi_init, residuals, cache_point3d)
 
 	# Simple gradient descent test
 	stepsize = 1e-6
