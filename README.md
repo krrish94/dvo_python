@@ -1,4 +1,4 @@
-# dvo_python: Dense visual odometry in Python(3.6(.7)) 
+# dvo_python: Dense visual odometry in Python(3.6(.6)) 
 > Coded up in a night! :)
 
 Someone tweeted about [this elegant implementation ](https://github.com/muskie82/simple_dvo), and that's what made my day (rather, my night). I was like, "Hmm, a good refresher on dense SLAM would be to implement this, let me do it in Python."
@@ -20,7 +20,7 @@ Someone tweeted about [this elegant implementation ](https://github.com/muskie82
 ## Micromanagement
 
 - [x] Work out dependencies (`numpy`, `OpenCV`, some SE(3) package(??), `matplotlib`)
-- [ ] Read in a pair of pointclouds and visualize them
+- [x] Read in a pair of pointclouds and visualize them
 - [ ] Construct image and depth pyramids
 - [ ] Compute the residual (warping error)
 - [ ] Implement image gradient computation
@@ -38,5 +38,6 @@ Someone tweeted about [this elegant implementation ](https://github.com/muskie82
 
 Times are in 24-hour format.
 
-2000 - 2020: Chalk out action plan.
-2020 - 2050: Dinner break.
+* 2000 - 2020: Chalk out action plan.
+* 2020 - 2050: Dinner break.
+* 2100 - 2130: Download a sequence from TUM RGB-D, load and display stuff
