@@ -55,4 +55,5 @@ Night 1: 21 November-22 November 2018
 * 0310 - 0330: Implement gradient descent optimizer
 
 Day 2: 22 November 2018
-* 1100 - 1130: Vectorize pyramid level construction
+* 1100 - 1130: Vectorize image pyramid level construction
+* 1614 - 1645: Vectorize edge-preserving depth pyramid level construction
