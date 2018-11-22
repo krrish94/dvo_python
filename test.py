@@ -26,6 +26,12 @@ def parse_args():
 	parser.add_argument('-endFrameDepth', help='Filename (sans the .png extension) of the last \
 		depth frame to be processed')
 	parser.add_argument('-numPyramidLevels', help='Number of levels used in the pyramid', default=3)
+	parser.add_argument('-stepsize', help='Step-size parameter, for gradient descent', default=1e-6)
+	parser.add_argument('-numIters', help='Default number of iterations to run each optimization \
+		routine for', default=50)
+	parser.add_argument('-tol', help='Tolerance parameter for gradient-based optimization. \
+		Specifies the amount by which loss must change across successive iterations', default=1e-8)
+
 
 	args = parser.parse_args()
 
@@ -79,14 +85,22 @@ def main(args):
 	# Simple gradient descent test
 	stepsize = 1e-6
 	max_iters = 100
+	tol = 1e-8
+	err_prev = 1e24
 	for it in range(max_iters):
 		residuals, cache_point3d = photometric_alignment.computeResiduals(img_gray_prev, \
 			img_depth_prev, img_gray_cur, K, xi_init)
 		J = photometric_alignment.computeJacobian(img_gray_prev, img_depth_prev, img_gray_cur, \
 			K, xi_init, residuals, cache_point3d)
-		print('Error: ', np.sum(np.abs(residuals)))
+		# Normalize the error and the jacobian
+		err_cur = 0.5 * (1 / (img_gray_cur.shape[0]*img_gray_cur.shape[1])) * np.sum(np.abs(residuals))
+		grad = (1 / (img_gray_cur.shape[0]*img_gray_cur.shape[1])) * np.reshape(np.sum(J, axis=(0,1)).T, (6,1))
+		print('Error: ', err_cur)
 		print('Jacobian: ', np.sum(J, axis=(0,1)))
-		xi_init += stepsize * np.reshape(np.sum(J, axis=(0,1)).T, (6,1))
+		xi_init += stepsize * grad
+		if np.abs(err_prev - err_cur) < tol:
+			break
+		err_prev = err_cur
 
 	
 	# fig, ax = plt.subplots(2, 2)

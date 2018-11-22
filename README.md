@@ -53,3 +53,6 @@ Night 1: 21 November-22 November 2018
 * 0200 - 0220: Image gradient computation, fetch SE(3) Jacobian helper functions
 * 0220 - 0310: Implement Jacobian computation
 * 0310 - 0330: Implement gradient descent optimizer
+
+Day 2: 22 November 2018
+* 1100 - 1130: Vectorize pyramid level construction
