@@ -3,6 +3,25 @@
 
 Someone tweeted about [this elegant implementation ](https://github.com/muskie82/simple_dvo), and that's what made my day (rather, my night). I was like, "Hmm, a good refresher on dense SLAM would be to implement this, let me do it in Python."
 
+
+## Micromanagement
+
+- [x] Work out dependencies (`numpy`, `OpenCV`, some SE(3) package(??), `matplotlib`)
+- [x] Read in a pair of pointclouds and visualize them
+- [x] Construct image and depth pyramids
+- [x] Compute the residual (warping error)
+- [x] Implement SE(3) routines
+- [x] Implement image gradient computation
+- [x] Compute Jacobian of the error function
+- [ ] Write a Gauss-Newton optimizer
+- [ ] Robustify the error function (IRLS / M-Estimators)
+- [ ] Debug the two-image alignment case
+- [ ] Extend to a sequence of several images
+- [ ] Setup class to load a TUM RGB-D sequence and run `dvo _python` on it.
+- [ ] Debug!
+- [ ] Check for any possibile visualization glitches/enhancements.
+
+
 ## Big picture checklist
 
 - [x] Barebones version of repo up
@@ -15,24 +34,6 @@ Someone tweeted about [this elegant implementation ](https://github.com/muskie82
 - [ ] Finish up documentation and README
 - [ ] Take a moment to revel in a sense of accomplishment ;)
 - [ ] Get some sleep!!! :)
-
-
-## Micromanagement
-
-- [x] Work out dependencies (`numpy`, `OpenCV`, some SE(3) package(??), `matplotlib`)
-- [x] Read in a pair of pointclouds and visualize them
-- [x] Construct image and depth pyramids
-- [x] Compute the residual (warping error)
-- [x] Implement SE(3) routines
-- [x] Implement image gradient computation
-- [ ] Compute Jacobian of the error function
-- [ ] Write a Gauss-Newton optimizer
-- [ ] Robustify the error function (IRLS / M-Estimators)
-- [ ] Debug the two-image alignment case
-- [ ] Extend to a sequence of several images
-- [ ] Setup class to load a TUM RGB-D sequence and run `dvo _python` on it.
-- [ ] Debug!
-- [ ] Check for any possibile visualization glitches/enhancements.
 
 
 ## Activity Log
