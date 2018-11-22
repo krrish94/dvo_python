@@ -62,8 +62,8 @@ def main(args):
 	K['cy'] = cy
 	K['scaling_factor'] = scaling_factor
 	xi_init = np.zeros((6,1))
-	residuals, cache_point3d = photometric_alignment.computeResiduals(img_gray_prev, img_depth_prev, \
-		img_gray_cur, K, xi_init)
+	# residuals, cache_point3d = photometric_alignment.computeResiduals(img_gray_prev, img_depth_prev, \
+	# 	img_gray_cur, K, xi_init)
 
 	# # Test image gradient computation
 	# grad_ix, grad_iy = photometric_alignment.computeImageGradients(img_gray_prev)
@@ -72,9 +72,22 @@ def main(args):
 	# cv2.imshow('grad_y', grad_iy)
 	# cv2.waitKey(0)
 
-	# Test Jacobian computation
-	J = photometric_alignment.computeJacobian(img_gray_prev, img_depth_prev, img_gray_cur, \
-		K, xi_init, residuals, cache_point3d)
+	# # Test Jacobian computation
+	# J = photometric_alignment.computeJacobian(img_gray_prev, img_depth_prev, img_gray_cur, \
+	# 	K, xi_init, residuals, cache_point3d)
+
+	# Simple gradient descent test
+	stepsize = 1e-6
+	max_iters = 100
+	for it in range(max_iters):
+		residuals, cache_point3d = photometric_alignment.computeResiduals(img_gray_prev, \
+			img_depth_prev, img_gray_cur, K, xi_init)
+		J = photometric_alignment.computeJacobian(img_gray_prev, img_depth_prev, img_gray_cur, \
+			K, xi_init, residuals, cache_point3d)
+		print('Error: ', np.sum(np.abs(residuals)))
+		print('Jacobian: ', np.sum(J, axis=(0,1)))
+		xi_init += stepsize * np.reshape(np.sum(J, axis=(0,1)).T, (6,1))
+
 	
 	# fig, ax = plt.subplots(2, 2)
 	# ax[0, 0].imshow(img_gray_prev, cmap='gray')
