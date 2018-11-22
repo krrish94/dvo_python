@@ -38,20 +38,14 @@ def main(args):
 	img_gray_next = cv2.imread(os.path.join(args.datapath, 'rgb', args.endFrameRGB + '.png'), cv2.IMREAD_GRAYSCALE)
 	img_depth_next = cv2.imread(os.path.join(args.datapath, 'depth', args.endFrameDepth + '.png'), cv2.IMREAD_GRAYSCALE)
 
-	# img_gray_cur = img_gray_cur.astype(np.float32)
-	# img_depth_cur = img_depth_cur.astype(np.float32)
-	# img_gray_next = img_gray_next.astype(np.float32)
-	# img_depth_next = img_depth_next.astype(np.float32)
+	# Convert the intensity images to float
 	img_gray_cur = imgutils.im2float(img_gray_cur)
 	img_gray_next = imgutils.im2float(img_gray_next)
-	print(img_gray_cur.shape, img_depth_cur.shape, img_gray_next.shape, img_depth_next.shape)
+	# print(img_gray_cur.shape, img_depth_cur.shape, img_gray_next.shape, img_depth_next.shape)
 	
-	img_down = pyramid.downsampleGray(img_gray_cur)
-	img_depth_down = pyramid.downsampleDepth(img_depth_cur)
-	cv2.imshow('orig', img_depth_cur)
-	cv2.imshow('down', img_depth_down)
-	cv2.waitKey(0)
-
+	# Construct a downsampled pyramid using the specified number of pyramid levels
+	pyramid_gray, pyramid_depth = pyramid.buildPyramid(img_gray_cur, img_depth_cur, num_levels = args.numPyramidLevels)
+	
 	# fig, ax = plt.subplots(2, 2)
 	# ax[0, 0].imshow(img_gray_cur, cmap='gray')
 	# ax[0, 0].set_title('RGB image (current frame)')

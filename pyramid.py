@@ -72,9 +72,15 @@ def buildPyramid(gray, depth, num_levels):
 	pyramid_gray = []
 	pyramid_depth = []
 
+	current_gray = gray
+	current_depth = depth
+
 	# Build levels of the pyramid
 	for level in range(num_levels):
-		pyramid_gray.append(downsampleGray(gray))
-		pyramid_depth.append(downsampleDepth(depth))
+		pyramid_gray.append(current_gray)
+		pyramid_depth.append(current_depth)
+		if level < num_levels-1:
+			current_gray = downsampleGray(current_gray)
+			current_depth = downsampleDepth(current_depth)
 
 	return pyramid_gray, pyramid_depth
