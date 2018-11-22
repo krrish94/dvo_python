@@ -5,6 +5,8 @@ Functions to compute photometric error residuals and jacobians
 import numpy as np
 
 import imgutils
+import se3utils
+
 
 # Takes in an intensity image and a registered depth image, and outputs a pointcloud
 # Intrinsics must be provided, else we use the TUM RGB-D benchmark defaults.
@@ -44,7 +46,7 @@ def computeResiduals(gray_prev, depth_prev, gray_cur, K, xi):
 	one_by_f = 1. / K['f']
 
 	# TODO: Replace this with the SE(3) Exponential map for xi
-	T = np.eye(4)
+	T = se3utils.SE3_Exp(xi)
 
 	K_mat = np.asarray([[K['f'], 0, K['cx']], [0, K['f'], K['cy']], [0, 0, 1]])
 

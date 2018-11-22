@@ -8,6 +8,7 @@ import sys
 import imgutils
 import photometric_alignment
 import pyramid
+import se3utils
 
 
 # Parse command-line arguments
