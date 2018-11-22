@@ -23,8 +23,8 @@ Someone tweeted about [this elegant implementation ](https://github.com/muskie82
 - [x] Read in a pair of pointclouds and visualize them
 - [x] Construct image and depth pyramids
 - [x] Compute the residual (warping error)
-- [ ] Implement SE(3) routines
-- [ ] Implement image gradient computation
+- [x] Implement SE(3) routines
+- [x] Implement image gradient computation
 - [ ] Compute Jacobian of the error function
 - [ ] Write a Gauss-Newton optimizer
 - [ ] Robustify the error function (IRLS / M-Estimators)
@@ -45,3 +45,4 @@ Times are in 24-hour format.
 * 2140 - 2300: Build pyramid levels (plus a lot of interruptions :|)
 * 2330 - 0115: Compute the photometric warp error
 * 0115 - 0145: Get SE(3) helper functions in
+* 0200 - 0220: Image gradient computation

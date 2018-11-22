@@ -62,8 +62,11 @@ def main(args):
 	K['cy'] = cy
 	K['scaling_factor'] = scaling_factor
 	xi_init = np.zeros((6,1))
-	residuals = photometric_alignment.computeResiduals(img_gray_prev, img_depth_prev, \
-		img_gray_cur, K, xi_init)
+	# residuals = photometric_alignment.computeResiduals(img_gray_prev, img_depth_prev, \
+	# 	img_gray_cur, K, xi_init)
+
+	# Test image gradient computation
+	grad_ix, grad_iy = photometric_alignment.computeImageGradients(img_gray_prev)
 	
 	# fig, ax = plt.subplots(2, 2)
 	# ax[0, 0].imshow(img_gray_prev, cmap='gray')

@@ -75,3 +75,22 @@ def computeResiduals(gray_prev, depth_prev, gray_cur, K, xi):
 				residuals.itemset((v, u), intensity_prev - intensity_warped)
 
 	return residuals
+
+
+# Function to compute image gradients (used in Jacobian computation)
+def computeImageGradients(img):
+	"""
+	We use a simple form for the image gradient. For instance, a gradient along the X-direction 
+	at location (y, x) is computed as I(y, x+1) - I(y, x-1).
+	"""
+	gradX = np.zeros(img.shape, dtype = np.float32)
+	gradY = np.zeros(img.shape, dtype = np.float32)
+
+	width = img.shape[1]
+	height = img.shape[0]
+
+	# Exploit the fact that we can perform matrix operations on images, to compute gradients quicker
+	gradX[:, 1:width-1] = img[:, 2:] - img[:,0:width-2]
+	gradY[1:height-1, :] = img[2:, :] - img[:height-2, :]
+
+	return gradX, gradY
